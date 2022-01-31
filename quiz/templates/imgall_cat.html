@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %} Categories {% endblock%}
+{% block content %}
+    <h3 class="my-5">Question Sets</h3>
+    
+        {% for c in data %}
+            <a class="btn btn-primary" href="{% url 'imgcategory_questions' c.id %}">{{c.section}}</a>
+        {% endfor %}
+   
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %} Select Category {% endblock%}
+{% block content %}
+
+    <h3 class="my-5">Select Category</h3>
+  
+    <a class="btn btn-primary" href="{% url 'textall_categories' %}">Text Category </a>
+    <br><br><br>
+        
+    <a class="btn btn-primary " href="{% url 'imgall_categories' %}" >Image Category </a>
+        
+{% endblock %}

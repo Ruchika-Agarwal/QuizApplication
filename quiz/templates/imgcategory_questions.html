@@ -1,0 +1,114 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    <script>
+    $(document).ready(function(){
+    $("#b1").click(function(){
+        $(".rb").show();
+        $(".rb").attr("disabled",true);
+
+
+    });
+    });
+
+
+        function getanswers()
+        {
+            
+            
+  
+        document.getElementById("UserAnswers").innerHTML = "";
+        var e = document.getElementsByTagName("input");
+            for(i = 0 ; i<=e.length;i++)
+            {
+                if(e[i].type=="radio")
+                {
+                    if(e[i].checked)
+                    {
+                        var ans=document.getElementById("UserAnswers").innerHTML+=" The Answers You Are Selected Is : "+e[i].value+"<br>";
+                        let text = "Do u want to continue?";
+                         if (confirm(text) == true) 
+                         {
+                              var tID = setTimeout(function () 
+                              {
+                                     window.location.replace("http://127.0.0.1:8000/textall_categories/");
+                                     window.clearTimeout(tID);		// clear time out.
+                             }, 5000);
+                
+                         } 
+                         else 
+                         {
+                        window.location.replace("http://127.0.0.1:8000/");
+                         }
+                     }
+                }
+                
+            }
+            
+        }
+    </script>
+     
+
+
+</head>
+<body>
+   
+<div class="container">
+    <h2 class="my-4">Set : <span class="text-primary">{{category.section}} </span></h2>
+{% for x in question %}
+<div class="card my-4 border-dark shadow">
+    <img src="{{x.image.url}}" width="300" ></img>
+
+    <div class="card-body">
+        {% for i in x.options.all %}
+        <label>
+            <li class="list-group-item">
+                <input type="radio" class="rb" name ='{{x.text}}' id="option" value="{{i.option}}">
+                {{i.option}}
+                
+            </li>
+        </label>
+        {% endfor %}
+    <div>
+     
+        
+            <input type="button" class="btn btn-success" value="Show DIV" id="bt" onclick="toggle(this)">
+            <div style="border:solid 1px #ddd; padding:10px; display:none;" id="cont">
+                {{x.explanation}}
+            </div>
+            
+      Correct Answer :<label id="corans" class= "rb" style="display:none ; color : green"><b>{{x.correct_ans}}</b></label>
+        
+    </div>
+</div>
+
+{% endfor %}
+
+<hr>
+
+     
+        <input type="submit" class="btn btn-primary" value="Submit" id="b1" onclick="getanswers()">
+        <br>
+        <b id="UserAnswers"></b>
+        </div>
+</div>
+</body>
+<script>
+    function toggle(ele) {
+        var cont = document.getElementById('cont');
+        if (cont.style.display == 'block') {
+            cont.style.display = 'none';
+
+            document.getElementById(ele.id).value = 'Show DIV';
+        }
+        else {
+            cont.style.display = 'block';
+            document.getElementById(ele.id).value = 'Hide DIV';
+        }
+    }
+</script>
+</html>
